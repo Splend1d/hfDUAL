@@ -443,10 +443,10 @@ def main():
                     tokenized_examples["end_positions"].append(1 + qlen + 1 + 1 + ans_end)
                 else: #not is this span
                     tokenized_examples["start_positions"].append(0)
-                    tokenized_examples["end_positions"].append(0)
+                    tokenized_examples["end_positions"].append(1)
                 which_question.append(ii)
                     
-                if is_pad:
+                if is_pad or True:
                     break
             #if ii == 82:
                 #s()
@@ -574,9 +574,9 @@ def main():
         return tokenized_examples
 
     if training_args.do_eval:
-        if "validation" not in raw_datasets:
+        if "dev" not in raw_datasets:
             raise ValueError("--do_eval requires a validation dataset")
-        eval_examples = raw_datasets["validation"]
+        eval_examples = raw_datasets["dev"]
         if data_args.max_eval_samples is not None:
             # We will select sample from whole data
             max_eval_samples = min(len(eval_examples), data_args.max_eval_samples)
